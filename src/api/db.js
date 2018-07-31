@@ -42,6 +42,7 @@ export const db = {
         {
             "id": 1,
             "userName": "John",
+            "avatar": 'https://findicons.com/files/icons/1072/face_avatars/300/g05.png',
             "list": {
                 "field1": "description filed1",
                 "field2": "description filed2",
@@ -51,6 +52,7 @@ export const db = {
         {
             "id": 2,
             "userName": "Anna",
+            "avatar": 'https://findicons.com/files/icons/1072/face_avatars/300/fh04.png',
             "list": {
                 "field1": "description filed1",
                 "field2": "description filed2",
@@ -60,6 +62,7 @@ export const db = {
         {
             "id": 3,
             "userName": "Peter",
+            "avatar": 'https://findicons.com/files/icons/1072/face_avatars/300/a01.png',
             "list": {
                 "field1": "description filed1",
                 "field2": "description filed2",

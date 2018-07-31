@@ -20,6 +20,10 @@ export function getDataType(data) {
         }
     }
 
+    if (type === 'string' && isImage(data)) {
+        return 'image';
+    }
+
     if (type === 'string' && isURL(data)) {
         return 'link';
     }
@@ -29,6 +33,12 @@ export function getDataType(data) {
     }
 
     return type;
+}
+
+export function isImage(str) {
+    const pattern = /(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))/;
+
+    return pattern.test(str);
 }
 
 export function isURL(str) {

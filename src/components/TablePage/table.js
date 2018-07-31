@@ -71,7 +71,7 @@ class TableComponent extends Component {
                 <tr>
                     {columns.map((col, index) => {
                         const type = getDataType(data[col]);
-                        const sortable = type !== 'object' ? true : false;
+                        const sortable = type === 'object' || type === 'image' ? false : true;
 
                         return (
                             <TableHead 
@@ -93,6 +93,13 @@ class TableComponent extends Component {
         switch(type) {
             case 'string':
                 return <td key={index}>{data}</td>;
+
+            case 'image':
+                return (
+                    <td key={index} className="text-center">
+                        <img src={data} alt={type} className="image"/>
+                    </td>
+                );
 
             case 'link':
                 return (
