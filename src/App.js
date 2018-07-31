@@ -20,7 +20,7 @@ class App extends Component {
                   path="/table/:tableName"
                   component={TablePage}
               />
-              <Route from="/" exact component={MainPage} />
+              <Route path="/" exact component={MainPage} />
               <Route path="/404-page" component = { ErrorPage  } />
               <Route component = { ErrorPage  } />
             </Switch>
