@@ -1,3 +1,26 @@
+import faker from 'faker';
+
+export const autoGenerateTable1 = [...new Array(50)].map((val, index) => {
+    const object = {
+        id: index + 1,
+        productName: faker.commerce.productName(),
+        price: faker.commerce.price(),
+        link: faker.internet.url()
+    };
+
+    return object;
+});
+
+export const autoGenerateTable2 = [...new Array(50)].map((val, index) => {
+    const object = {
+        id: index + 1,
+        userName: faker.internet.userName(),
+        avatar: faker.image.avatar()
+    };
+
+    return object;
+});
+
 export const db = {
     "products": [
         {
@@ -93,5 +116,9 @@ export const db = {
             "age": 27,
             "last_seen": "2012-11-19T10:55:45.000Z"
         }
-    ]
+    ],
+
+    "autoGenerateTable1": autoGenerateTable1,
+
+    "autoGenerateTable2": autoGenerateTable2
 };
