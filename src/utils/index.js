@@ -98,3 +98,26 @@ export const sorting = {
         return this.string(data, colName, order);
     }
 };
+
+export const filtering = {
+   number: function(data, colName, value) {
+        return data.filter(object => {
+            const a = ~~parseFloat(object[colName]);
+            const b = ~~parseFloat(value);
+
+            return a === b;
+        });
+    },
+
+    float: function(data, colName, value) {
+        return this.number(data, colName, value);
+    },
+
+    date: function(data, colName, value) {
+        return data.filter(object => moment(object[colName]).isSame(value, 'day'));
+    },
+
+    string: function(data, colName, value) {
+        return data.filter(object => String(object[colName]).includes(value));
+    }
+};

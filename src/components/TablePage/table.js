@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Table, ListGroup, ListGroupItem } from 'react-bootstrap';
 import moment from 'moment';
 import TableHead from './tableHead';
-import {getDataType, compose, sorting} from '../../utils';
+import {getDataType, compose, sorting, filtering} from '../../utils';
 
 class TableComponent extends Component {
     static defaultProps = {
@@ -33,23 +33,11 @@ class TableComponent extends Component {
         if (data.length === 0 || !filter || !filter.value.length) {
             return data;
         }
-        
+
         const {colName, type, value} = filter;
+        const filteredData = filtering[type](data, colName, value);
 
-        if (type === 'number' || type === 'float') {
-            return data.filter(object => {
-                const a = ~~parseFloat(object[colName]);
-                const b = ~~parseFloat(value);
-
-                return a === b;
-            });
-        }
-
-        if (type === 'date') {
-            return data.filter(object => moment(object[colName]).isSame(value, 'day'));
-        }
-
-        return data.filter(object => String(object[colName]).includes(value));
+        return filteredData;
     }
 
     generateFilterFunctions = () => {

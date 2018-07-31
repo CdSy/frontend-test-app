@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "productName": "Galaxy S8",
+        "value": "499.9999",
+        "link": "https://www.samsung.com/us/explore/galaxy-s8/buy/s/Device/"
+    },
+    {
+        "id": 2,
+        "productName": "Galaxy S8+",
+        "value": "400.5954",
+        "link": "https://www.samsung.com/us/explore/galaxy-s8/buy/s/Device/"
+    },
+    {
+        "id": 3,
+        "productName": "Galaxy S8",
+        "value": "300.1",
+        "link": "https://www.samsung.com/us/explore/galaxy-s8/buy/s/Device/"
+    },
+    {
+        "id": 4,
+        "productName": "iPhoneX",
+        "value": "1200.5",
+        "link": "https://www.samsung.com/us/explore/galaxy-s8/buy/s/Device/"
+    },
+    {
+        "id": 5,
+        "productName": "iPhone 7",
+        "value": "499",
+        "link": "https://www.samsung.com/us/explore/galaxy-s8/buy/s/Device/"
+    },
+    {
+        "id": 6,
+        "productName": "Samsung H",
+        "value": "399.99",
+        "link": "https://www.samsung.com/us/explore/galaxy-s8/buy/s/Device/"
+    }
+]

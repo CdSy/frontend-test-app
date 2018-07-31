@@ -1,17 +1,11 @@
-import { db } from './db';
+import axios from 'axios';
+
+const SERVER = 'http://localhost:5000';
 
 export function getAvailableTables() {
-    const tables = Object.keys(db);
-
-    return Promise.resolve(tables);
+    return axios.get(`${SERVER}/api/tables`).then((response) => response.data);
 }
 
-export function getTable(name) {
-    const table = db[name] ? db[name] : undefined;
-
-    if (table) {
-        return Promise.resolve(table);
-    } else {
-        return Promise.reject(new Error('page not found'));
-    }
+export function getTable(tableName) {
+    return axios.get(`${SERVER}/api/table/${tableName}`).then((response) => response.data);
 }
