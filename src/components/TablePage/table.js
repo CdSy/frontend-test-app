@@ -29,27 +29,40 @@ class TableComponent extends Component {
         return sortedData;
     }
 
-    filterData = (data) => {
-        const {filterByString, filterByKey, type} = this.props;
-
-        if (data.length === 0 || !filterByString || !filterByKey) {
+    filterData = (data, filter) => {
+        const {filterByString} = this.props;
+        
+        if (data.length === 0 || !filterByString || !filter || !filter.value.length) {
             return data;
         }
+        
+        const {colName, type, value} = filter;
 
         if (type === 'number' || type === 'float') {
             return data.filter(object => {
-                const a = ~~parseFloat(object[filterByKey]);
-                const b = ~~parseFloat(filterByString);
+                const a = ~~parseFloat(object[colName]);
+                const b = ~~parseFloat(value);
 
                 return a === b;
             });
         }
 
         if (type === 'date') {
-            return data.filter(object => moment(object[filterByKey]).isSame(filterByString, 'day'));
+            return data.filter(object => moment(object[colName]).isSame(value, 'day'));
         }
 
-        return data.filter(object => String(object[filterByKey]).includes(filterByString));
+        return data.filter(object => String(object[colName]).includes(value));
+    }
+
+    generateFilterFunctions = () => {
+        const {filterByKeys} = this.props;
+        const filters = Object.keys(filterByKeys).map(key => filterByKeys[key]);
+
+        if (!filters) {
+            return [(data) => (data)];
+        }
+
+        return filters.map((filter) => (data) => this.filterData(data, filter));
     }
 
     renderHead(data) {
@@ -153,7 +166,9 @@ class TableComponent extends Component {
     render() {
         const { data } = this.props;
         const headTitles = data.length ? data[0] : [];
-        const filteredData = compose(this.filterData, this.sortData)(data);
+        const filterFunctions = this.generateFilterFunctions();
+        const filteredData = compose(...filterFunctions, this.sortData)(data);
+
 
         return (
             <Table striped bordered condensed hover>
