@@ -20,7 +20,7 @@ class TableComponent extends Component {
     sortData = (data) => {
         const { colName, type, order } = this.props;
 
-        if (!colName) {
+        if (!colName || data.length < 2) {
             return data;
         }
 
@@ -30,9 +30,7 @@ class TableComponent extends Component {
     }
 
     filterData = (data, filter) => {
-        const {filterByString} = this.props;
-        
-        if (data.length === 0 || !filterByString || !filter || !filter.value.length) {
+        if (data.length === 0 || !filter || !filter.value.length) {
             return data;
         }
         

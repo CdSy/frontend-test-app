@@ -10,7 +10,6 @@ class TablePage extends Component {
     state = {
         data: [],
         tableName: '',
-        filterByString: null,
         filterByKeys: {},
         colName: null,
         type: null,
@@ -39,7 +38,6 @@ class TablePage extends Component {
                     this.setState({
                         data: table, 
                         tableName: currentTableName,
-                        filterByString: null,
                         filterByKeys: {},
                         colName: null,
                         type: null,
@@ -62,14 +60,12 @@ class TablePage extends Component {
         const newFilterKeys = {...this.state.filterByKeys, [colName]: {colName, type, value}};
 
         this.setState({
-            filterByString: value,
-            filterByKeys: newFilterKeys,
-            type: type
+            filterByKeys: newFilterKeys
         });
     }
 
     render() {
-        const { data, tableName,filterByString, filterByKeys, colName, type, order } = this.state;
+        const { data, tableName, filterByKeys, colName, type, order } = this.state;
 
         return (
             <Fragment>
@@ -80,7 +76,6 @@ class TablePage extends Component {
                     data={data}
                     onSortChange={this.onSortChange}
                     onFilterChange={this.onFilterChange}
-                    filterByString={filterByString}
                     filterByKeys={filterByKeys}
                     colName={colName}
                     type={type}
