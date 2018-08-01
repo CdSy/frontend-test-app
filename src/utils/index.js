@@ -119,5 +119,9 @@ export const filtering = {
 
     string: function(data, colName, value) {
         return data.filter(object => String(object[colName]).includes(value));
+    },
+
+    link: function(data, colName, value) {
+        return this.string(data, colName, value);
     }
 };

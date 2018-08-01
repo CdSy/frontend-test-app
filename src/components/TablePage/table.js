@@ -5,20 +5,35 @@ import TableHead from './tableHead';
 import {getDataType, compose, sorting, filtering} from '../../utils';
 
 class TableComponent extends Component {
+    state = {
+        filterByKeys: {},
+        colName: null,
+        type: null,
+        order: null,
+    }
+
     static defaultProps = {
-        data: []
+        data: [],
     }
 
     onSortChange = (colName, type, order) => {
-        this.props.onSortChange(colName, type, order);
+        this.setState({
+            colName,
+            type,
+            order
+        });
     }
 
     onFilterChange = (value, colName, type) => {
-        this.props.onFilterChange(value, colName, type);
+        const newFilterKeys = {...this.state.filterByKeys, [colName]: {colName, type, value}};
+
+        this.setState({
+            filterByKeys: newFilterKeys
+        });
     }
 
     sortData = (data) => {
-        const { colName, type, order } = this.props;
+        const { colName, type, order } = this.state;
 
         if (!colName || data.length < 2) {
             return data;
@@ -41,7 +56,7 @@ class TableComponent extends Component {
     }
 
     generateFilterFunctions = () => {
-        const {filterByKeys} = this.props;
+        const {filterByKeys} = this.state;
         const filters = Object.keys(filterByKeys).map(key => filterByKeys[key]);
 
         if (!filters) {
@@ -141,14 +156,14 @@ class TableComponent extends Component {
             return null;
         }
 
+        const types = Object.keys(data[0]).map((col) => getDataType(data[0][col]));
+
         return (
             <tbody>
                 {data.map((row, rowIndex) => (
                     <tr key={row.id}>
                         {Object.keys(row).map((col, colIndex) => {
-                            const dataType = getDataType(row[col]);
-
-                            return this.renderCell(row[col], dataType, colIndex);
+                            return this.renderCell(row[col], types[colIndex], colIndex);
                         })}
                     </tr>
                 ))}
@@ -161,7 +176,6 @@ class TableComponent extends Component {
         const headTitles = data.length ? data[0] : [];
         const filterFunctions = this.generateFilterFunctions();
         const filteredData = compose(...filterFunctions, this.sortData)(data);
-
 
         return (
             <Table striped bordered condensed hover>
